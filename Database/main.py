@@ -42,21 +42,11 @@ mycursor.executemany(sql,val)
 data = {"counter": 7, "date_time": datetime.now()}
 
 def INSERT_DATA(camera_ID, input_data):
-    sql1 = "INSERT INTO Dados (Contador, Data_Tempo) VALUES (%s, %s)"
-    data1 = (input_data['counter'], input_data['date_time'])
-    mycursor.execute(sql1, data1)
+    sql = "INSERT INTO Dados (Contador, Data_Tempo, Camera_ID) VALUES (%s, %s, %s)"
+    data = (input_data['counter'], input_data['date_time'], camera_ID)
+    mycursor.execute(sql, data)
 
-    sql_check = "SELECT COUNT(*) FROM Dados"
-    mycursor.execute(sql_check)
-
-    counter = mycursor.fetchone()
-    counterInt = int(counter[0])
-
-    sql2 = "INSERT INTO possui VALUES (%s, %s)"
-    data2 = (camera_ID, counterInt)
-    mycursor.execute(sql2, data2)
-
-INSERT_DATA(2, data)
+INSERT_DATA(1, data)
 
 mydb.commit()
 
