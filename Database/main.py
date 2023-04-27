@@ -48,6 +48,10 @@ def INSERT_DATA(camera_ID, input_data):
 
 INSERT_DATA(1, data)
 
+def FetchDate(dataTime, timeRange):
+    #SELECT * FROM Dados WHERE (Data_Tempo BETWEEN '2010-01-30 14:15:55' AND '2010-09-29 10:15:55');
+    pass
+
 mydb.commit()
 
 print(mycursor.rowcount, "record inserted")
