@@ -74,6 +74,36 @@ def CompareData(camera_select_1, camera_select_2, startTime, interval):
 
 #CompareData(2, 3, datetime.fromisoformat('2023-04-28 07:00:00'), (60*30))
 
+def CheckTrafficOverall(date):
+    query = "SELECT Contador FROM Dados WHERE Data_Tempo BETWEEN %s AND %s"
+    dateStart = date
+    dateStart = dateStart.replace(hour=0, minute=0, second=0)
+
+    dateEnd = date
+    dateEnd = dateEnd.replace(hour=23, minute=59, second=59)
+    times = (dateStart, dateEnd)
+
+    mycursor.execute(query, times)
+    results = mycursor.fetchall()
+
+    resultsInt = []
+    total = 0
+
+    for i in results:
+        var = int(''.join(map(str, i)))
+        resultsInt.append(var)
+        total += var
+    '''
+    print(resultsInt)
+
+    print(f'On {date.day}-{date.month}-{date.year}, we had around {total} car passing by')
+    '''
+    return {"array" : resultsInt, "total" : total, "date" : date}
+
+output = CheckTrafficOverall(datetime.fromisoformat('2023-04-28 07:00:00'))
+
+print(output['total'], output['date'])
+
 def InsertDummyData():
     for i in range(100):
         sql = 'INSERT INTO Dados (Contador, Data_Tempo, Camera_ID) VALUES (%s, %s, %s)'
