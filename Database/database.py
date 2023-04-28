@@ -19,7 +19,7 @@ mycursor = mydb.cursor()
 
 data = {"counter": 7, "date_time": datetime.now()}
 
-def INSERT_DATA(camera_ID, input_data):
+def Insert_Data(camera_ID, input_data):
     sql = "INSERT INTO Dados (Contador, Data_Tempo, Camera_ID) VALUES (%s, %s, %s)"
     data = (input_data['counter'], input_data['date_time'], camera_ID)
     mycursor.execute(sql, data)
@@ -27,7 +27,7 @@ def INSERT_DATA(camera_ID, input_data):
     print(mycursor.rowcount, "record inserted")
 
 
-#INSERT_DATA(1, data)
+#Insert_Data(1, data)
 
 #The time range will be inserted as seconds at a minimum
 #Example:
