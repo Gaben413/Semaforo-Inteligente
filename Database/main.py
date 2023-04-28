@@ -4,7 +4,7 @@ from datetime import timedelta
 import dotenv
 import os
 
-from random import randrange #Only to insert dummy data
+from random import randrange #Only to insert dummy data-
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 #Connect to the database
@@ -23,6 +23,9 @@ def INSERT_DATA(camera_ID, input_data):
     sql = "INSERT INTO Dados (Contador, Data_Tempo, Camera_ID) VALUES (%s, %s, %s)"
     data = (input_data['counter'], input_data['date_time'], camera_ID)
     mycursor.execute(sql, data)
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted")
+
 
 #INSERT_DATA(1, data)
 
@@ -69,17 +72,21 @@ def CompareData(camera_select_1, camera_select_2, startTime, interval):
     elif data_cam_1 == data_cam_2:
         print('Ambas cameras tem a mesma quantidade de carros passando')
 
-CompareData(2, 3, datetime.fromisoformat('2023-04-28 07:00:00'), (60*30))
+#CompareData(2, 3, datetime.fromisoformat('2023-04-28 07:00:00'), (60*30))
 
 def InsertDummyData():
     for i in range(100):
         sql = 'INSERT INTO Dados (Contador, Data_Tempo, Camera_ID) VALUES (%s, %s, %s)'
         val = (randrange(50), datetime.fromisoformat('2023-04-28 07:00:00')+timedelta(0, randrange(60*60)), 3)
         mycursor.execute(sql, val)
+    mydb.commit()
+
+    print(mycursor.rowcount, "record inserted")
 
 #print(randrange(60*60))
 #InsertDummyData()
-
+'''
 mydb.commit()
 
 print(mycursor.rowcount, "record inserted")
+'''
